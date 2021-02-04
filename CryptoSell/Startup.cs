@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Reflection;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace CryptoSell
 {
@@ -25,6 +29,27 @@ namespace CryptoSell
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+
+            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CryptoSell API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Danilo Markovic",
+                        Email = string.Empty,
+                        Url = new Uri("https://twitter.com/danilo_sb34"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Milan Stojanovic",
+                        Url = new Uri("https://twitter.com/dicko_98"),
+                    }
+                });
             });
         }
 
@@ -48,6 +73,17 @@ namespace CryptoSell
             {
                 app.UseSpaStaticFiles();
             }
+
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

@@ -14,6 +14,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.6" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,5 +53,36 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/snappy32.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/snappy64.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/snappy32.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/snappy64.dll" />
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\contentFiles\any\netstandard2.0\Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\contentFiles\any\netstandard2.0\Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\contentFiles\any\netstandard2.0\Core\Compression\Zstandard\lib\win\libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\admin\.nuget\packages\mongodb.driver.core\2.11.6\build\../runtimes/win/native/libzstd.dll" />
+  </ItemGroup>
 
 </Project>
