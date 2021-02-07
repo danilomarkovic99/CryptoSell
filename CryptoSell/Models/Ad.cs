@@ -11,6 +11,7 @@ namespace CryptoSell.Models
     public class Ad
     {
         public ObjectId Id { get; set; }
+        public Guid AdUid { get; set; }
         public MongoDBRef Coin { get; set; }
         public double Price { get; set; }
         public double CryptoCurrencyAmount { get; set; }

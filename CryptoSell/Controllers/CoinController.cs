@@ -26,37 +26,44 @@ namespace CryptoSell.Controllers
         }
         // GET: api/<CoinController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var coinList = Collection.Find<Coin>(c => true).ToList();
+            return Ok(coinList);
         }
 
         // GET api/<CoinController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{sym}")]
+        public async Task<IActionResult> Get(string sym)
         {
-            return "value";
+
+            Coin coin = Collection.Find<Coin>(c => c.Symbol == sym).FirstOrDefault();
+            if (coin == null)
+            {
+                return NotFound();
+            }
+            return Ok(coin);
         }
 
         // POST api/<CoinController>
         [HttpPost]
-        public void Post(double value)
+        public void Post(Coin coin)
         {
-            
-            Coin c = new Coin { Symbol = "POLS", MarketPrice = value, Name = "PolkaStarter" };
-            Collection.InsertOne(c);
+            Collection.InsertOne(coin);      
         }
 
         // PUT api/<CoinController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Coin coin)
         {
+            Collection.ReplaceOne(c => c.Symbol == coin.Symbol, coin);
         }
 
         // DELETE api/<CoinController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{sym}")]
+        public void Delete(string sym)
         {
+            Collection.DeleteOne(c => c.Symbol == sym);
         }
     }
 }
