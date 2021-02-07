@@ -18,13 +18,14 @@ namespace CryptoSell.Controllers
         MongoClient Client;
         IMongoDatabase Database;
         IMongoCollection<Coin> Collection;
+
         public CoinController()
         {
             Client = new MongoClient("mongodb://localhost/?safe=true");
             Database = Client.GetDatabase("cryptosell");
             Collection = Database.GetCollection<Coin>("coins");
         }
-        // GET: api/<CoinController>
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -32,9 +33,8 @@ namespace CryptoSell.Controllers
             return Ok(coinList);
         }
 
-        // GET api/<CoinController>/5
-        [HttpGet("{sym}")]
-        public async Task<IActionResult> Get(string sym)
+        [HttpGet(nameof(GetCoin))]
+        public async Task<IActionResult> GetCoin(string sym)
         {
 
             Coin coin = Collection.Find<Coin>(c => c.Symbol == sym).FirstOrDefault();
@@ -45,23 +45,20 @@ namespace CryptoSell.Controllers
             return Ok(coin);
         }
 
-        // POST api/<CoinController>
-        [HttpPost]
-        public void Post(Coin coin)
+        [HttpPost(nameof(CreateCoin))]
+        public void CreateCoin(Coin coin)
         {
             Collection.InsertOne(coin);      
         }
 
-        // PUT api/<CoinController>/5
-        [HttpPut]
-        public void Put([FromBody] Coin coin)
+        [HttpPut(nameof(ChangeCoin))]
+        public void ChangeCoin([FromBody] Coin coin)
         {
             Collection.ReplaceOne(c => c.Symbol == coin.Symbol, coin);
         }
 
-        // DELETE api/<CoinController>/5
-        [HttpDelete("{sym}")]
-        public void Delete(string sym)
+        [HttpDelete(nameof(DeleteCoinBySymbol))]
+        public void DeleteCoinBySymbol(string sym)
         {
             Collection.DeleteOne(c => c.Symbol == sym);
         }

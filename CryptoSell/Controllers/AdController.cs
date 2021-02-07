@@ -17,19 +17,21 @@ namespace CryptoSell.Controllers
         MongoClient Client;
         IMongoDatabase Database;
         IMongoCollection<Ad> Collection;
+
         public AdController()
         {
             Client = new MongoClient("mongodb://localhost/?safe=true");
             Database = Client.GetDatabase("cryptosell");
             Collection = Database.GetCollection<Ad>("ads");
         }
-        // GET: api/<AdController>
+
         [HttpGet(nameof(GetAdsSell))]
         public async Task<IActionResult> GetAdsSell()
         {
             var adList = Collection.Find(a => a.AdType == Enums.AdType.Sell).ToList();
             return Ok(adList);
         }
+
         [HttpGet(nameof(GetAdsBuy))]
         public async Task<IActionResult> GetAdsBuy()
         {
@@ -37,10 +39,8 @@ namespace CryptoSell.Controllers
             return Ok(adList);
         }
 
-
-        // GET api/<AdController>/5
-        [HttpGet("{uid}")]
-        public async Task<IActionResult> Get(Guid uid)
+        [HttpGet(nameof(GetAd))]
+        public async Task<IActionResult> GetAd(Guid uid)
         {
             
             Ad ad = Collection.Find(a => a.AdUid == uid).FirstOrDefault();
@@ -51,26 +51,23 @@ namespace CryptoSell.Controllers
             return Ok(ad);
         }
 
-        // POST api/<AdController>
-        [HttpPost]
-        public void Post([FromBody]Ad ad)
+        [HttpPost(nameof(CreateAd))]
+        public void CreateAd([FromBody]Ad ad)
         {
             ad.AdUid = Guid.NewGuid();
-            //Ad ad = new Ad { AdStatus = Enums.AdStatus.Active, AdType = Enums.AdType.Sell, Coin = null, Advertiser = null, CryptoCurrencyAmount = 1.1, Customer = null, Price = 1800 };
+           
             Collection.InsertOne(ad);
 
         }
 
-        // PUT api/<AdController>/5
-        [HttpPut]
-        public void Put([FromBody]Ad ad)
+        [HttpPut(nameof(ChangeAd))]
+        public void ChangeAd([FromBody]Ad ad)
         {
             Collection.ReplaceOne(a => a.AdUid == ad.AdUid, ad);
         }
 
-        // DELETE api/<AdController>/5
-        [HttpDelete("{uid}")]
-        public void Delete(Guid uid)
+        [HttpDelete(nameof(DeleteByGuid))]
+        public void DeleteByGuid(Guid uid)
         {
             Ad ad = Collection.Find(x => x.AdUid == uid).FirstOrDefault();
             ad.AdStatus = Enums.AdStatus.Archived;

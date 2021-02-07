@@ -1,5 +1,6 @@
 ﻿using CryptoSell.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -23,39 +24,43 @@ namespace CryptoSell.Controllers
             Database = Client.GetDatabase("cryptosell");
             Collection = Database.GetCollection<User>("users");
         }
-        // GET: api/<UserController>
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Collection.Find(x => true).ToList();
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet(nameof(GetUser))]
+        public User GetUser(string username)
         {
-            return "value";
+            return Collection.Find<User>(x => x.UserName == username).FirstOrDefault();
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post(string value)
+        [HttpPost(nameof(CreateUser))]
+        public IActionResult CreateUser([FromBody] User user)
         {
-           
-            User test = new User { Name = "Milan", SurName = "Stojanovic", Email = "mil.stojanovic@elfak.rs", Password = "2020kojagodina", Role = Enums.Role.Admin, UserName = "dickoAdmin", BankAccountNumber = null, WalletAdress = null };
-            Collection.InsertOne(test);
+            Collection.InsertOne(user);
+            return CreatedAtRoute("User", new { id = user.Id.ToString() }, user);
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut(nameof(ChangePassword))]
+        public IActionResult ChangePassword(string username, string password)
         {
+            var filter = Builders<User>.Filter.Eq("UserName", username);
+            var update = Builders<User>.Update.Set("Password", password);
+
+            Collection.UpdateOne(filter, update);
+
+            return Ok();
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete(nameof(DeleteUser))]
+        public IActionResult DeleteUser(string username)
         {
+            Collection.DeleteOne(x => x.UserName == username);
+
+            return Ok();
         }
     }
 }
