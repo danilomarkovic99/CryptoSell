@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CryptoSell.Models;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,15 @@ namespace CryptoSell.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        MongoClient Client;
+        IMongoDatabase Database;
+        IMongoCollection<User> Collection;
+        public UserController()
+        {
+            Client = new MongoClient("mongodb://localhost/?safe=true");
+            Database = Client.GetDatabase("cryptosell");
+            Collection = Database.GetCollection<User>("users");
+        }
         // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -28,8 +39,11 @@ namespace CryptoSell.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string value)
         {
+           
+            User test = new User { Name = "Milan", SurName = "Stojanovic", Email = "mil.stojanovic@elfak.rs", Password = "2020kojagodina", Role = Enums.Role.Admin, UserName = "dickoAdmin", BankAccountNumber = null, WalletAdress = null };
+            Collection.InsertOne(test);
         }
 
         // PUT api/<UserController>/5

@@ -11,6 +11,6 @@ namespace CryptoSell.Models
         public ObjectId Id { get; set; }
         public string Name { get; set; }
         public string Symbol { get; set; }
-        public string MarketPrice { get; set; }
+        public double MarketPrice { get; set; }
     }
 }

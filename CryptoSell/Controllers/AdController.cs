@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CryptoSell.Models;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,15 @@ namespace CryptoSell.Controllers
     [ApiController]
     public class AdController : ControllerBase
     {
+        MongoClient Client;
+        IMongoDatabase Database;
+        IMongoCollection<Ad> Collection;
+        public AdController()
+        {
+            Client = new MongoClient("mongodb://localhost/?safe=true");
+            Database = Client.GetDatabase("cryptosell");
+            Collection = Database.GetCollection<Ad>("ads");
+        }
         // GET: api/<AdController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -28,8 +39,12 @@ namespace CryptoSell.Controllers
 
         // POST api/<AdController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string value)
         {
+            
+            Coin c = new Coin { Symbol = "POLS", MarketPrice = 2.2, Name = "PolkaStarter" };
+            Ad ad = new Ad { AdStatus = Enums.AdStatus.Active, AdType = Enums.AdType.Sell, Coin = null, Advertiser = null, CryptoCurrencyAmount = 1.1, Customer = null, Price = 1800 };
+            Collection.InsertOne(ad);
         }
 
         // PUT api/<AdController>/5

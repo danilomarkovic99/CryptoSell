@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Driver;
+using MongoDB.Driver;
+using CryptoSell.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +15,15 @@ namespace CryptoSell.Controllers
     [ApiController]
     public class CoinController : ControllerBase
     {
+        MongoClient Client;
+        IMongoDatabase Database;
+        IMongoCollection<Coin> Collection;
+        public CoinController()
+        {
+            Client = new MongoClient("mongodb://localhost/?safe=true");
+            Database = Client.GetDatabase("cryptosell");
+            Collection = Database.GetCollection<Coin>("coins");
+        }
         // GET: api/<CoinController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -28,8 +40,11 @@ namespace CryptoSell.Controllers
 
         // POST api/<CoinController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(double value)
         {
+            
+            Coin c = new Coin { Symbol = "POLS", MarketPrice = value, Name = "PolkaStarter" };
+            Collection.InsertOne(c);
         }
 
         // PUT api/<CoinController>/5

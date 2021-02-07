@@ -12,8 +12,8 @@ namespace CryptoSell.Models
     {
         public ObjectId Id { get; set; }
         public MongoDBRef Coin { get; set; }
-        public float Price { get; set; }
-        public float CryptoCurrencyAmount { get; set; }
+        public double Price { get; set; }
+        public double CryptoCurrencyAmount { get; set; }
         public AdType AdType { get; set; }
         public AdStatus AdStatus { get; set; }
         public MongoDBRef Advertiser { get; set; }
