@@ -1,0 +1,17 @@
+<header id="home-header" [ngClass]="{'header-fixed': isFixed}">
+  <div class="container" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start center">
+    <div class="header-mobile-top" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="start center">
+      <div class="home-logo mr-1">
+          <a href="/"><img src="assets/images/logo-full.png" alt="Egret logo"></a>
+      </div>
+      <button mat-icon-button id="menu-toggle" (click)="toggleMenu()"><mat-icon>menu</mat-icon></button>
+    </div>
+    <div fxFlex class="top-menu">
+     <button mat-button id="dashboard-topbtn" class="hometop-btn" ><strong>OGLASI ZA PRODAJU</strong></button>
+      <button mat-button id="dashboard-topbtn" class="hometop-btn" scrollTo="service-section"><strong>OGLASI ZA KUPOVINU</strong></button>
+      <button mat-button id="dashboard-topbtn" class="hometop-btn" scrollTo="pricings-section"><strong>CENE VALUTA</strong></button>
+      <span fxFlex></span>
+      <button mat-button id="dashboard-topbtn" class="hometop-btn icon-button" (click)="buyEgret()"><mat-icon>person</mat-icon><strong> My Account</strong></button>
+    </div>
+  </div>
+</header>
