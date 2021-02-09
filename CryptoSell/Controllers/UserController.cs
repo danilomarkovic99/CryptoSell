@@ -39,12 +39,21 @@ namespace CryptoSell.Controllers
         }
 
         [HttpPost(nameof(CreateUser))]
-        public void CreateUser([FromBody] User user)
+        public IActionResult CreateUser([FromBody] User user)
         {
-            Collection.InsertOne(user);
+            user.Role = Enums.Role.Admin;
+            var user1 = Collection.Find<User>(x => x.UserName == user.UserName || x.Email == user.Email).FirstOrDefault();
+            if (user1 == null)
+            {
+                Collection.InsertOne(user);
+                return Ok(user);
+            }
+            else
+                return BadRequest();
+
         }
 
-        [HttpPost(nameof(Login))]
+        [HttpGet(nameof(Login))]
         public IActionResult Login(string username, string password)
         {
             var user = Collection.Find<User>(x => x.UserName == username && x.Password == password).FirstOrDefault();

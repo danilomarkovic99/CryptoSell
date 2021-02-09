@@ -61,8 +61,11 @@ namespace CryptoSell
                                                           "https://localhost:5000",
                                                           "http://localhost:4200",
                                                           "https://localhost:44383"
-                                                          ).WithMethods("PUT", "DELETE", "GET"); ;
-                                  });
+                                                          ).WithMethods("POST", "PUT", "DELETE", "GET")
+                                        .AllowAnyOrigin()
+                                        .AllowAnyMethod()
+                                        .AllowAnyHeader(); 
+            });
             });
         }
 

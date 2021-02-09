@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs-compat/operator/map';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +13,15 @@ export class LoginComponent implements OnInit {
   public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
   private returnUrl: string;
-  currentUser: any;
-
+  currentUser: any = null;
+  http : HttpClient;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+   http: HttpClient
   ) {
+    this.http = http;
   }
 
 
@@ -29,11 +29,12 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home/one';
 
     this.form = this.fb.group({
-      username: ['', Validators.email],
+      username: [''],
       password: ['', Validators.required]
     });
 
     if (localStorage.getItem("username") !== null) {
+
       await this.router.navigate([this.returnUrl]);
     }
   }
@@ -44,21 +45,25 @@ export class LoginComponent implements OnInit {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
-      try {
+      
         const username = this.form.get('username').value;
         const password = this.form.get('password').value;
-        this.http.get<any>('https://192.168.2.148:45455/' + 'user/getmedicaluser?username=' + {username, password}).subscribe(result => {
+        this.http.get<User>('https://localhost:5001/' + 'user/login?username=' + username +'&password=' + password).subscribe(result => {
        console.log(result);  
      this.currentUser = result;
-     //this.ngAfterViewInit();    
-     }, error => console.error(error));
 
-      } catch (err) {
-        this.loginInvalid = true;
-      }
-    } else {
-      this.formSubmitAttempt = true;
+     if (this.currentUser !== null){
+      localStorage.setItem("username", username);
+      this.router.navigate([this.returnUrl]);
     }
+    }, error =>  alert("Niste pogodili sifru ili lozinku"));
+    } 
+    
   }
+}
+
+interface User {
+  username: string;
+  password: string;
 }
 
