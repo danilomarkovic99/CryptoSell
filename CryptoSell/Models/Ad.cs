@@ -12,13 +12,13 @@ namespace CryptoSell.Models
     {
         public ObjectId Id { get; set; }
         public Guid AdUid { get; set; }
-        public MongoDBRef Coin { get; set; }
+        public Coin Coin { get; set; }
         public double Price { get; set; }
         public double CryptoCurrencyAmount { get; set; }
         public AdType AdType { get; set; }
         public AdStatus AdStatus { get; set; }
-        public MongoDBRef Advertiser { get; set; }
-        public MongoDBRef Customer { get; set; }
+        public User Advertiser { get; set; }
+        public User Customer { get; set; }
         public int TransactionNumber { get; set; }
     }
 }

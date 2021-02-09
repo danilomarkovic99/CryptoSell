@@ -36,6 +36,10 @@ namespace CryptoSell.Controllers
         public async Task<IActionResult> GetAdsBuy()
         {
             var adList = Collection.Find(a => a.AdType == Enums.AdType.Buy && a.AdStatus == Enums.AdStatus.Active).ToList();
+
+            if (adList == null)
+                return BadRequest();
+
             return Ok(adList);
         }
 
@@ -43,21 +47,23 @@ namespace CryptoSell.Controllers
         public async Task<IActionResult> GetAd(Guid uid)
         {
             Ad ad = Collection.Find(a => a.AdUid == uid).FirstOrDefault();
-         
-            if(ad==null)
-            {
-                return NotFound();
-            
-            }
+
+            if (ad == null)
+                return BadRequest();
+
             return Ok(ad);
         }
 
-        //[HttpGet(nameof(GetUserActiveAds))]
-        //public async Task<IActionResult> GetUserActiveAds()
-        //{
+        [HttpGet(nameof(GetUserActiveAds))]
+        public async Task<IActionResult> GetUserActiveAds()
+        {
+            var activeAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Active && x.AdStatus == Enums.AdStatus.Processing).ToList();
 
-        //    return Ok();
-        //}
+            if (activeAds == null)
+                return BadRequest();
+
+            return Ok(activeAds);
+        }
 
         [HttpPost(nameof(CreateAd))]
         public void CreateAd([FromBody]Ad ad)

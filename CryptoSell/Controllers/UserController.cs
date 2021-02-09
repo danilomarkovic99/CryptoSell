@@ -39,10 +39,9 @@ namespace CryptoSell.Controllers
         }
 
         [HttpPost(nameof(CreateUser))]
-        public IActionResult CreateUser([FromBody] User user)
+        public void CreateUser([FromBody] User user)
         {
             Collection.InsertOne(user);
-            return CreatedAtRoute("User", new { id = user.Id.ToString() }, user);
         }
 
         [HttpPost(nameof(Login))]

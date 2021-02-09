@@ -29,7 +29,7 @@ namespace CryptoSell.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var coinList = Collection.Find<Coin>(c => true).ToList();
+            var coinList = Collection.Find<Coin>(c => true).SortByDescending(x => x.MarketPrice).ToList();
             return Ok(coinList);
         }
 
@@ -46,15 +46,27 @@ namespace CryptoSell.Controllers
         }
 
         [HttpPost(nameof(CreateCoin))]
-        public void CreateCoin(Coin coin)
+        public async Task<IActionResult> CreateCoin(Coin coin)
         {
-            Collection.InsertOne(coin);      
+            var c = Collection.Find(c => c.Symbol == coin.Symbol || c.Name == coin.Name).FirstOrDefault();
+
+            if (c == null)
+                Collection.InsertOne(coin);
+            else
+                return BadRequest();
+
+            return StatusCode(200);
         }
 
-        [HttpPut(nameof(ChangeCoin))]
-        public void ChangeCoin([FromBody] Coin coin)
+        [HttpPut(nameof(ChangeCoinPrice))]
+        public async Task<IActionResult> ChangeCoinPrice(string sym, string market)
         {
-            Collection.ReplaceOne(c => c.Symbol == coin.Symbol, coin);
+            var filter = Builders<Coin>.Filter.Eq("Symbol", sym);
+            var update = Builders<Coin>.Update.Set("MarketPrice", market);
+
+            Collection.UpdateOne(filter, update);
+
+            return Ok(filter);
         }
 
         [HttpDelete(nameof(DeleteCoinBySymbol))]
