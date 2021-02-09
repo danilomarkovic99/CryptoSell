@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { t } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-coinprice',
@@ -11,7 +12,6 @@ export class CoinpriceComponent implements AfterViewInit {
   displayedColumns:  string[] = ['symbol', 'name', 'marketPrice'];
   httpClient: HttpClient;
   public coins: Coin[] = [];
-
   dataSource = new MatTableDataSource<Coin>(this.coins);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,3 +33,4 @@ interface Coin {
   Name: string;
   MarketPrice: number;
 }
+

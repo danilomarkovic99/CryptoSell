@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home/one';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home/profile';
 
     this.form = this.fb.group({
       username: [''],

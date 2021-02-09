@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home/one';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home/profile';
 
     this.form = this.fb.group({
       email: ['', Validators.email],
@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
     });
 
     if (localStorage.getItem("username") !== null) {
-
       await this.router.navigate([this.returnUrl]);
     }
   }
@@ -65,12 +64,12 @@ export class RegisterComponent implements OnInit {
         })
         };
         
-        this.http.post<User>('https://localhost:5001/user/createuser', JSON.stringify(this.newUser), options).subscribe(result => {
-       console.log(result);  
-     this.currentUser = result;
+      this.http.post<User>('https://localhost:5001/user/createuser', JSON.stringify(this.newUser), options).subscribe(result => {
+      console.log(result);  
+      this.currentUser = result;
 
-     if (this.currentUser !== null){
-      localStorage.setItem("username", this.currentUser.UserName);
+      if (this.currentUser !== null){
+      localStorage.setItem("username", this.newUser.UserName);
       this.router.navigate([this.returnUrl]);
     }
     }, error =>  alert("Postoji user sa datim usernameom ili emailom"));

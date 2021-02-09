@@ -7,11 +7,12 @@
       <button mat-icon-button id="menu-toggle" (click)="toggleMenu()"><mat-icon>menu</mat-icon></button>
     </div>
     <div fxFlex class="top-menu">
-     <button mat-button id="dashboard-topbtn" class="hometop-btn" [routerLink]="['/home/buyads']"><strong>OGLASI ZA PRODAJU</strong></button>
-      <button mat-button id="dashboard-topbtn" class="hometop-btn" [routerLink]="['/home/sellads']"><strong>OGLASI ZA KUPOVINU</strong></button>
+     <button mat-button id="dashboard-topbtn" class="hometop-btn" [routerLink]="['/home/buyads']"><strong>OGLASI ZA KUPOVINU</strong></button>
+      <button mat-button id="dashboard-topbtn" class="hometop-btn" [routerLink]="['/home/sellads']"><strong>OGLASI ZA PRODAJU</strong></button>
       <button mat-button id="dashboard-topbtn" class="hometop-btn" [routerLink]="['/home/coinprices']"><strong>CENE VALUTA</strong></button>
       <span fxFlex></span>
       <button mat-button id="dashboard-topbtn" class="hometop-btn icon-button" [routerLink]="['/home/profile']"><mat-icon>person</mat-icon><strong> My Account</strong></button>
+      <button mat-button id="dashboard-topbtn" *ngIf="this.isVisible" class="hometop-btn" (click)="logout()"><strong>Log out</strong></button>
     </div>
   </div>
 </header>

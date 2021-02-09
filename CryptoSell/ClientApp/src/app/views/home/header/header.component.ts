@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, HostBinding, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WINDOW_PROVIDERS, WINDOW } from '../../../shared/helpers/window.helper';
 
 @Component({
@@ -9,10 +10,18 @@ import { WINDOW_PROVIDERS, WINDOW } from '../../../shared/helpers/window.helper'
 })
 export class HeaderComponent implements OnInit {
   isFixed;
+  isVisible = true;
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    @Inject(WINDOW) private window: Window
-  ) { }
+    @Inject(WINDOW) private window: Window,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+
+    if (localStorage.getItem("username") === null) {
+      this.isVisible = false;
+    }
+   }
 
   ngOnInit() {
   }
@@ -32,10 +41,11 @@ export class HeaderComponent implements OnInit {
     this.menuOpened = !this.menuOpened
   }
 
-  buyEgret() {
-    this.window.open('https://themeforest.net/item/egret-angular-4-material-design-admin-template/20161805?ref=mh_rafi');
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/home/one']);
   }
-
+ 
 
 
 }

@@ -9,8 +9,8 @@
           <mat-form-field class="full-width-input">
             <mat-label>Coin</mat-label>
             <mat-select (selectionChange)="selected($event)" name="coin">
-              <mat-option *ngFor="let c of coins" [value]="c">
-                {{c}}
+              <mat-option *ngFor="let c of coins" [value]="c.symbol">
+                {{c.name}}
               </mat-option>
            </mat-select>
           </mat-form-field>
@@ -18,8 +18,8 @@
           <mat-form-field class="full-width-input">
             <mat-label>Kupovina ili prodaja</mat-label>
             <mat-select (selectionChange)="selected($event)" name="type">
-              <mat-option *ngFor="let t of types" [value]="t">
-                {{t}}
+              <mat-option *ngFor="let t of types" [value]="t.Value">
+                {{t.Name}}
               </mat-option>
            </mat-select>
           </mat-form-field>
