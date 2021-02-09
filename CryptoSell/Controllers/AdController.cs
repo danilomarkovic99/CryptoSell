@@ -28,28 +28,36 @@ namespace CryptoSell.Controllers
         [HttpGet(nameof(GetAdsSell))]
         public async Task<IActionResult> GetAdsSell()
         {
-            var adList = Collection.Find(a => a.AdType == Enums.AdType.Sell).ToList();
+            var adList = Collection.Find(a => a.AdType == Enums.AdType.Sell && a.AdStatus == Enums.AdStatus.Active).ToList();
             return Ok(adList);
         }
 
         [HttpGet(nameof(GetAdsBuy))]
         public async Task<IActionResult> GetAdsBuy()
         {
-            var adList = Collection.Find(a => a.AdType == Enums.AdType.Buy).ToList();
+            var adList = Collection.Find(a => a.AdType == Enums.AdType.Buy && a.AdStatus == Enums.AdStatus.Active).ToList();
             return Ok(adList);
         }
 
         [HttpGet(nameof(GetAd))]
         public async Task<IActionResult> GetAd(Guid uid)
         {
-            
             Ad ad = Collection.Find(a => a.AdUid == uid).FirstOrDefault();
+         
             if(ad==null)
             {
                 return NotFound();
+            
             }
             return Ok(ad);
         }
+
+        //[HttpGet(nameof(GetUserActiveAds))]
+        //public async Task<IActionResult> GetUserActiveAds()
+        //{
+
+        //    return Ok();
+        //}
 
         [HttpPost(nameof(CreateAd))]
         public void CreateAd([FromBody]Ad ad)
@@ -57,7 +65,15 @@ namespace CryptoSell.Controllers
             ad.AdUid = Guid.NewGuid();
            
             Collection.InsertOne(ad);
+        }
 
+        [HttpPost(nameof(BuyCoin))]
+        public IActionResult BuyCoin([FromBody] Ad ad)
+        {
+            var buyAd = Collection.Find(x => x.AdUid == ad.AdUid).SortByDescending(x => x.TransactionNumber).FirstOrDefault();
+            buyAd.AdStatus = Enums.AdStatus.Processing;
+            buyAd.TransactionNumber += 1;
+            return Ok(buyAd);
         }
 
         [HttpPut(nameof(ChangeAd))]

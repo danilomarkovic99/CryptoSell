@@ -19,5 +19,6 @@ namespace CryptoSell.Models
         public AdStatus AdStatus { get; set; }
         public MongoDBRef Advertiser { get; set; }
         public MongoDBRef Customer { get; set; }
+        public int TransactionNumber { get; set; }
     }
 }

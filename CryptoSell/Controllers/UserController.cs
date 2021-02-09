@@ -1,4 +1,5 @@
-﻿using CryptoSell.Models;
+﻿using CryptoSell.DTOs;
+using CryptoSell.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -42,6 +43,18 @@ namespace CryptoSell.Controllers
         {
             Collection.InsertOne(user);
             return CreatedAtRoute("User", new { id = user.Id.ToString() }, user);
+        }
+
+        [HttpPost(nameof(Login))]
+        public IActionResult Login([FromBody] LoginDTO login)
+        {
+            var username = Collection.Find<User>(x => x.UserName == login.UserName).FirstOrDefault();
+            var password = Collection.Find<User>(x => x.Password == login.Password).FirstOrDefault();
+
+            if (username == null || password == null)
+                return BadRequest();
+            else
+                return Ok(username);
         }
 
         [HttpPut(nameof(ChangePassword))]
