@@ -1,0 +1,45 @@
+<section id="intro-section" class="home-intro-section">
+  <h1>Oglasi za kupovinu</h1>
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+<div class="mat-elevation-z8" >
+<table style="width: 100%;" mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="Coin">
+    <th mat-header-cell *matHeaderCellDef> Coin </th>
+    <td mat-cell *matCellDef="let pollution">  </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Kolicina">
+    <th mat-header-cell *matHeaderCellDef> Kolicina </th>
+    <td mat-cell *matCellDef="let pollution">  </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Cena">
+    <th mat-header-cell *matHeaderCellDef> Cena </th>
+    <td mat-cell *matCellDef="let pollution">  </td>
+  </ng-container>
+  <ng-container matColumnDef="Prodavac">
+    <th mat-header-cell *matHeaderCellDef> Prodavac </th>
+    <td mat-cell *matCellDef="let pollution">  </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Kupi">
+    <th mat-header-cell *matHeaderCellDef> Kupi </th>
+    <td mat-cell *matCellDef="let pollution"> <button
+      mat-button
+      color="warn"
+      (click)="deleteData(pollution, $event)"> Obrisi </button></td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+</section>

@@ -32,6 +32,13 @@ import {MaterialModule} from "./material/material.module";
 
 import { WINDOW_PROVIDERS } from '../../shared/helpers/window.helper';
 import { BuyComponent } from './buy/buy.component';
+import { SelladsComponent } from './sellads.component';
+import { CoinPricesComponent } from './coinprices.component';
+import { SellComponent } from './sell/sell.component';
+import { CoinpriceComponent } from './coinprice/coinprice.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -59,12 +66,14 @@ import { BuyComponent } from './buy/buy.component';
     HomeOneComponent,
     HeaderComponent, 
     BuyadsComponent,
+    SelladsComponent,
+    CoinPricesComponent,
     IntroOneComponent,
     ContactComponent, 
     FooterComponent, 
     TestimonialsComponent, 
     TestimonialsCarouselComponent, 
-    ServicesCarouselComponent, BuyComponent
+    ServicesCarouselComponent, BuyComponent, SellComponent, CoinpriceComponent, UserProfileComponent, LoginComponent, RegisterComponent
   ],
   
   providers: [WINDOW_PROVIDERS]
