@@ -45,15 +45,14 @@ namespace CryptoSell.Controllers
         }
 
         [HttpPost(nameof(Login))]
-        public IActionResult Login([FromBody] LoginDTO login)
+        public IActionResult Login(string username, string password)
         {
-            var username = Collection.Find<User>(x => x.UserName == login.UserName).FirstOrDefault();
-            var password = Collection.Find<User>(x => x.Password == login.Password).FirstOrDefault();
+            var user = Collection.Find<User>(x => x.UserName == username && x.Password == password).FirstOrDefault();
 
-            if (username == null || password == null)
+            if (user == null)
                 return BadRequest();
             else
-                return Ok(username);
+                return Ok(user);
         }
 
         [HttpPut(nameof(ChangePassword))]

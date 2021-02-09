@@ -26,8 +26,8 @@ namespace CryptoSell.Controllers
             Collection = Database.GetCollection<Coin>("coins");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet(nameof(GetCoins))]
+        public async Task<IActionResult> GetCoins()
         {
             var coinList = Collection.Find<Coin>(c => true).SortByDescending(x => x.MarketPrice).ToList();
             return Ok(coinList);

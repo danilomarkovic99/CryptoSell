@@ -51,6 +51,19 @@ namespace CryptoSell
                     }
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://localhost:5001",
+                                                          "https://localhost:5000",
+                                                          "http://localhost:4200",
+                                                          "https://localhost:44383"
+                                                          ).WithMethods("PUT", "DELETE", "GET"); ;
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,14 +99,14 @@ namespace CryptoSell
             });
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
