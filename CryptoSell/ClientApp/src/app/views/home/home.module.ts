@@ -39,6 +39,9 @@ import { CoinpriceComponent } from './coinprice/coinprice.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginsComponent } from './logins.component';
+import { RegistersComponent } from './registers.component';
+import { ProfileComponent } from './profile.component';
 
 
 @NgModule({
@@ -67,6 +70,9 @@ import { RegisterComponent } from './register/register.component';
     HeaderComponent, 
     BuyadsComponent,
     SelladsComponent,
+    LoginsComponent,
+    RegistersComponent,
+    ProfileComponent,
     CoinPricesComponent,
     IntroOneComponent,
     ContactComponent, 

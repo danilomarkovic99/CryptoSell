@@ -15,9 +15,9 @@
           <mat-icon color="accent">check</mat-icon><span fxFlex="20px"></span>Jednostavno koriscenje </div>
       </div>
       <div fxLayout="row" fxLayout.lt-sm="column">
-        <button mat-raised-button mat-lg-button color="primary" (click)="buyEgret()"> Uloguj se</button>
+        <button mat-raised-button mat-lg-button color="primary" [routerLink]="['/home/login']"> Uloguj se</button>
         <span fxFlex="20px"></span>
-        <button mat-raised-button mat-lg-button id="frontend-btn" (click)="getNGLanding()">Registruj se</button>
+        <button mat-raised-button mat-lg-button id="frontend-btn" [routerLink]="['/home/register']">Registruj se</button>
       </div>
     </div>
     <span fxFlex.lt-md="30px" fxFlex="0"></span>

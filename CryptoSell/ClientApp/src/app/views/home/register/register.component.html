@@ -1,3 +1,73 @@
-<p>
-  register works!
-</p>
+<section id="intro-section" class="home-intro-section">
+  &nbsp;
+  &nbsp;
+  
+  <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <h2>Registracija</h2>
+          <h4>Ime, prezime i mail adresa se nece prikazivati drugim korisnicima!</h4>
+          <mat-error *ngIf="registrationInvalid">
+            The username and password were not recognised
+          </mat-error>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Ime" formControlName="name" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Prezime" formControlName="lastname" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Username" formControlName="username" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Broj bankovnog racuna" formControlName="bankaccount" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Adresa kripto novcanika" formControlName="walletadress" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Sifra" formControlName="password" required>
+            <mat-error>
+              Please provide a valid password
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Ponovite sifru" formControlName="password2" required>
+            <mat-error>
+              Please provide a valid password
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <button mat-raised-button color="primary">Registruj se</button>
+        </form>
+      </mat-card-content>
+    </mat-card>

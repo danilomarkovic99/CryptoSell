@@ -1,3 +1,84 @@
-<p>
-  user-profile works!
-</p>
+<section id="intro-section" class="home-intro-section">
+  &nbsp;
+  &nbsp;
+  
+<mat-card>
+  <mat-card-content>
+    <h2>Milan Stojanovic @dicko98</h2>
+    <h3>Oglasi koje ste vi postavili</h3>
+    <div class="mat-elevation-z8" >
+      <table style="width: 100%;" mat-table [dataSource]="dataSource">
+    
+        <ng-container matColumnDef="Coin">
+          <th mat-header-cell *matHeaderCellDef> Coin </th>
+          <td mat-cell *matCellDef="let pollution">  </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Kolicina">
+          <th mat-header-cell *matHeaderCellDef> Kolicina </th>
+          <td mat-cell *matCellDef="let pollution">  </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Cena">
+          <th mat-header-cell *matHeaderCellDef> Cena </th>
+          <td mat-cell *matCellDef="let pollution">  </td>
+        </ng-container>
+        <ng-container matColumnDef="Tip">
+          <th mat-header-cell *matHeaderCellDef> Tip </th>
+          <td mat-cell *matCellDef="let pollution">  </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="Obrisi">
+          <th mat-header-cell *matHeaderCellDef> Obrisi </th>
+          <td mat-cell *matCellDef="let pollution"> <button
+            mat-button
+            color="warn"
+            (click)="deleteData(pollution, $event)"> Obrisi </button></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+      <p></p>
+      <button mat-raised-button color="primary" style="width: 300px;">Dodaj novi oglas</button>     
+      <h3>Oglasi kojima ste pristupili i u obradi su</h3>
+      <div class="mat-elevation-z8" >
+        <table style="width: 100%;" mat-table [dataSource]="dataSource2">
+      
+          <ng-container matColumnDef="Coin">
+            <th mat-header-cell *matHeaderCellDef> Coin </th>
+            <td mat-cell *matCellDef="let pollution">  </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="Kolicina">
+            <th mat-header-cell *matHeaderCellDef> Kolicina </th>
+            <td mat-cell *matCellDef="let pollution">  </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="Cena">
+            <th mat-header-cell *matHeaderCellDef> Cena </th>
+            <td mat-cell *matCellDef="let pollution">  </td>
+          </ng-container>
+          <ng-container matColumnDef="Oglasivac">
+            <th mat-header-cell *matHeaderCellDef> Oglasivac </th>
+            <td mat-cell *matCellDef="let pollution">  </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="Obustavi">
+            <th mat-header-cell *matHeaderCellDef> Obustavi </th>
+            <td mat-cell *matCellDef="let pollution"> <button
+              mat-button
+              color="warn"
+              (click)="deleteData(pollution, $event)"> Obustavi </button></td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+  </mat-card-content>
+</mat-card>
+</section>
