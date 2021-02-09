@@ -17,7 +17,7 @@ export class AddAdComponent implements OnInit {
   http : HttpClient;
   coins: Coin[] = null;
   types: Type[] = [{Name: "Kupovina", Value: 0}, {Name:"Prodaja", Value:1}];
-
+  ad: Ad = new Ad();
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -28,6 +28,8 @@ export class AddAdComponent implements OnInit {
     http.get<Coin[]>('https://localhost:5001/' + 'coin/getcoins').subscribe(result => {
       this.coins = result;
     }, error => console.error(error));
+
+
   }
 
   async ngOnInit() {
@@ -50,20 +52,20 @@ export class AddAdComponent implements OnInit {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
     if (this.form.valid) {
-        
-        
-        const password2 = this.form.get('password2').value;
-       
+        this.ad.Coin.Symbol = this.form.get('coin').value;
+        this.ad.AdType = this.form.get('type').value;
+        this.ad.CryptoCurrencyAmount = this.form.get('amount').value;
+        this.ad.Price = this.form.get('price').value;
+        this.ad.Advertiser = this.currentUser;
         const options = {
           headers: new HttpHeaders({
           'Content-Type': 'application/json',
         })
         };
         
-      this.http.post<User>('https://localhost:5001/user/createuser', JSON.stringify(this.currentUser), options).subscribe(result => {
+      this.http.post<Ad>('https://localhost:5001/ad/createad', JSON.stringify(this.ad), options).subscribe(result => {
       console.log(result);  
-      this.currentUser = result;     
-    }, error =>  alert("Postoji user sa datim usernameom ili emailom"));
+    }, error =>  console.log(error));
     } 
     
   }
@@ -81,7 +83,7 @@ class User{
   BankAccountNumber: string;
 }
 
-interface Coin {
+class Coin {
   Symbol: string;
   Name: string;
   MarketPrice: number;
@@ -90,5 +92,16 @@ interface Coin {
 interface Type {
   Name: string;
   Value: number;
+}
 
+class Ad {
+  AdUid: string;
+  Coin: Coin;
+  CryptoCurrencyAmount: number;
+  Price: number;
+  Advertiser: User;
+  AdType: number;
+  AdStatus: number;
+  TransactionNumber: number;
+  add: Coin[];
 }
