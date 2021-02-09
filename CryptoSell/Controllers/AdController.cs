@@ -55,14 +55,25 @@ namespace CryptoSell.Controllers
         }
 
         [HttpGet(nameof(GetUserActiveAds))]
-        public async Task<IActionResult> GetUserActiveAds()
+        public async Task<IActionResult> GetUserActiveAds(string username)
         {
-            var activeAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Active && x.AdStatus == Enums.AdStatus.Processing).ToList();
+            var activeAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Active && x.Advertiser.UserName == username).ToList();
 
             if (activeAds == null)
                 return BadRequest();
 
             return Ok(activeAds);
+        }
+
+        [HttpGet(nameof(GetUserProcessingAds))]
+        public async Task<IActionResult> GetUserProcessingAds(string username)
+        {
+            var processingAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Processing && x.Advertiser.UserName == username).ToList();
+
+            if (processingAds == null)
+                return BadRequest();
+
+            return Ok(processingAds);
         }
 
         [HttpPost(nameof(CreateAd))]
@@ -76,9 +87,10 @@ namespace CryptoSell.Controllers
         [HttpPut(nameof(BuyCoin))]
         public IActionResult BuyCoin([FromBody] Ad ad)
         {
-            var buyAd = Collection.Find(x => x.AdUid == ad.AdUid).SortByDescending(x => x.TransactionNumber).FirstOrDefault();
+            var buyAd = Collection.Find(x => x.AdUid == ad.AdUid).FirstOrDefault();
             buyAd.AdStatus = Enums.AdStatus.Processing;
             buyAd.TransactionNumber += 1;
+            Collection.ReplaceOne(x => x.AdUid == buyAd.AdUid, buyAd);
             return Ok(buyAd);
         }
 
@@ -91,9 +103,8 @@ namespace CryptoSell.Controllers
         [HttpDelete(nameof(DeleteByGuid))]
         public void DeleteByGuid(Guid uid)
         {
-            Ad ad = Collection.Find(x => x.AdUid == uid).FirstOrDefault();
-            ad.AdStatus = Enums.AdStatus.Archived;
-            Collection.ReplaceOne(a => a.AdUid == uid, ad);
+            Collection.DeleteOne<Ad>(a => a.AdUid == uid);
         }
+
     }
 }

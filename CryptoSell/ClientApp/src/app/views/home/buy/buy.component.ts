@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractFormGroupDirective } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
@@ -23,13 +23,28 @@ export class BuyComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource<Ad>(result);
       this.ngAfterViewInit();
     }, error => console.error(error));
+    this.httpClient = http;
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
+  public buyCoin(ad, event){
+    const options = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+    };
+
+  this.httpClient.put('https://localhost:5001/' + 'ad/buycoin', JSON.stringify(ad), options)
+     .subscribe((s) => {
+      console.log(s);
+      location.reload();
+    });
+  }
 }
+
 
 
 interface Ad {
