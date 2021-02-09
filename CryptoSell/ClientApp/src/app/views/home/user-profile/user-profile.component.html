@@ -42,7 +42,7 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
       <p></p>
-      <button mat-raised-button color="primary" style="width: 300px;">Dodaj novi oglas</button>     
+      <button mat-raised-button color="primary" style="width: 300px;" [routerLink]="['/home/newad']">Dodaj novi oglas</button>     
       <h3>Oglasi kojima ste pristupili i u obradi su</h3>
       <div class="mat-elevation-z8" >
         <table style="width: 100%;" mat-table [dataSource]="dataSource2">

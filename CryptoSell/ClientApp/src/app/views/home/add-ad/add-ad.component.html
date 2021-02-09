@@ -1,0 +1,45 @@
+<section id="intro-section" class="home-intro-section">
+  &nbsp;
+  &nbsp;
+  
+  <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <h2>Dodavanje novog oglasa</h2>
+          <mat-form-field class="full-width-input">
+            <mat-label>Coin</mat-label>
+            <mat-select (selectionChange)="selected($event)" name="coin">
+              <mat-option *ngFor="let c of coins" [value]="c">
+                {{c}}
+              </mat-option>
+           </mat-select>
+          </mat-form-field>
+          <p></p>
+          <mat-form-field class="full-width-input">
+            <mat-label>Kupovina ili prodaja</mat-label>
+            <mat-select (selectionChange)="selected($event)" name="type">
+              <mat-option *ngFor="let t of types" [value]="t">
+                {{t}}
+              </mat-option>
+           </mat-select>
+          </mat-form-field>
+          <p></p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Kolicina" formControlName="amount" required>
+            <mat-error>
+              Please provide an amount
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Cena" formControlName="price" required>
+            <mat-error>
+              Please provide a price
+            </mat-error>
+          </mat-form-field>
+          <p> </p>
+          <button mat-raised-button color="primary">Dodaj oglas</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+</section>

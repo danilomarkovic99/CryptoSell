@@ -42,6 +42,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginsComponent } from './logins.component';
 import { RegistersComponent } from './registers.component';
 import { ProfileComponent } from './profile.component';
+import { AddAdComponent } from './add-ad/add-ad.component';
+import { NewAdComponent } from './newad.component';
 
 
 @NgModule({
@@ -73,13 +75,14 @@ import { ProfileComponent } from './profile.component';
     LoginsComponent,
     RegistersComponent,
     ProfileComponent,
+    NewAdComponent,
     CoinPricesComponent,
     IntroOneComponent,
     ContactComponent, 
     FooterComponent, 
     TestimonialsComponent, 
     TestimonialsCarouselComponent, 
-    ServicesCarouselComponent, BuyComponent, SellComponent, CoinpriceComponent, UserProfileComponent, LoginComponent, RegisterComponent
+    ServicesCarouselComponent, BuyComponent, SellComponent, CoinpriceComponent, UserProfileComponent, LoginComponent, RegisterComponent, AddAdComponent
   ],
   
   providers: [WINDOW_PROVIDERS]
