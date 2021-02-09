@@ -73,7 +73,7 @@ namespace CryptoSell.Controllers
             Collection.InsertOne(ad);
         }
 
-        [HttpPost(nameof(BuyCoin))]
+        [HttpPut(nameof(BuyCoin))]
         public IActionResult BuyCoin([FromBody] Ad ad)
         {
             var buyAd = Collection.Find(x => x.AdUid == ad.AdUid).SortByDescending(x => x.TransactionNumber).FirstOrDefault();

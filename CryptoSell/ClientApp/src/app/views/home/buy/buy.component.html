@@ -9,31 +9,31 @@
 <div class="mat-elevation-z8" >
   <table style="width: 100%;" mat-table [dataSource]="dataSource">
 
-    <ng-container matColumnDef="Coin">
+    <ng-container matColumnDef="coin">
       <th mat-header-cell *matHeaderCellDef> Coin </th>
-      <td mat-cell *matCellDef="let pollution">  </td>
+      <td mat-cell *matCellDef="let ad"> {{ ad.coin.symbol }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Kolicina">
+    <ng-container matColumnDef="kolicina">
       <th mat-header-cell *matHeaderCellDef> Kolicina </th>
-      <td mat-cell *matCellDef="let pollution">  </td>
+      <td mat-cell *matCellDef="let ad"> {{ ad.cryptoCurrencyAmount }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Cena">
+    <ng-container matColumnDef="cena">
       <th mat-header-cell *matHeaderCellDef> Cena </th>
-      <td mat-cell *matCellDef="let pollution">  </td>
+      <td mat-cell *matCellDef="let ad"> {{ ad.price }} $ </td>
     </ng-container>
-    <ng-container matColumnDef="Kupac">
-      <th mat-header-cell *matHeaderCellDef> Kupac </th>
-      <td mat-cell *matCellDef="let pollution">  </td>
+    <ng-container matColumnDef="prodavac">
+      <th mat-header-cell *matHeaderCellDef> Prodavac </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.advertiser.userName }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Prodaj">
-      <th mat-header-cell *matHeaderCellDef> Prodaj </th>
-      <td mat-cell *matCellDef="let pollution"> <button
+    <ng-container matColumnDef="Kupi">
+      <th mat-header-cell *matHeaderCellDef> Kupi </th>
+      <td mat-cell *matCellDef="let ad"> <button
         mat-button
         color="warn"
-        (click)="deleteData(pollution, $event)"> Obrisi </button></td>
+        (click)="deleteData(pollution, $event)"> Kupi </button></td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
