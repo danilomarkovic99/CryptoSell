@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq;
-
+using CryptoSell.DTOs;
 
 namespace CryptoSell.Controllers
 {
@@ -17,12 +17,17 @@ namespace CryptoSell.Controllers
         MongoClient Client;
         IMongoDatabase Database;
         IMongoCollection<Ad> Collection;
+        IMongoCollection<Coin> CoinsColl;
+        IMongoCollection<User> Users;
 
         public AdController()
         {
             Client = new MongoClient("mongodb://localhost/?safe=true");
             Database = Client.GetDatabase("cryptosell");
             Collection = Database.GetCollection<Ad>("ads");
+            CoinsColl = Database.GetCollection<Coin>("coins");
+            Users = Database.GetCollection<User>("users");
+
         }
 
         [HttpGet(nameof(GetAdsSell))]
@@ -77,11 +82,14 @@ namespace CryptoSell.Controllers
         }
 
         [HttpPost(nameof(CreateAd))]
-        public void CreateAd([FromBody]Ad ad)
+        public IActionResult CreateAd([FromBody]AdDTO ad)
         {
-            ad.AdUid = Guid.NewGuid();
-           
-            Collection.InsertOne(ad);
+            Ad a = new Ad { AdType = ad.AdType, Price = ad.Price, CryptoCurrencyAmount = ad.Amount };
+            a.AdUid = Guid.NewGuid();
+            a.Coin = CoinsColl.Find<Coin>(x => x.Symbol == ad.Symbol).FirstOrDefault();
+            a.Advertiser = Users.Find<User>(x => x.UserName == ad.Advertiser).FirstOrDefault();
+            Collection.InsertOne(a);
+            return Ok(ad);
         }
 
         [HttpPut(nameof(BuyCoin))]
