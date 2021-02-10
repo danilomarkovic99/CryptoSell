@@ -4,7 +4,7 @@
   
 <mat-card>
   <mat-card-content>
-    <h2>Milan Stojanovic @dicko98</h2>
+    <h2>{{currentUser.name}} {{currentUser.surName}} @{{currentUser.userName}}</h2>
     <h3>Oglasi koje ste vi postavili</h3>
     <div class="mat-elevation-z8" >
       <table style="width: 100%;" mat-table [dataSource]="dataSource">
@@ -25,7 +25,7 @@
         </ng-container>
         <ng-container matColumnDef="Tip">
           <th mat-header-cell *matHeaderCellDef> Tip </th>
-          <td mat-cell *matCellDef="let ad"> {{ AdType[ad.adType] }} </td>
+          <td mat-cell *matCellDef="let ad"> {{ ad.adType }} </td>
         </ng-container>
     
         <ng-container matColumnDef="Obrisi">
@@ -33,7 +33,7 @@
           <td mat-cell *matCellDef="let ad"> <button
             mat-button
             color="warn"
-            (click)="deleteData(pollution, $event)"> Obrisi </button></td>
+            (click)="deleteActiveAd(ad.adUid)"> Obrisi </button></td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -49,29 +49,29 @@
       
           <ng-container matColumnDef="Coin">
             <th mat-header-cell *matHeaderCellDef> Coin </th>
-            <td mat-cell *matCellDef="let ad"> {{ad.coin.symbol}} </td>
+            <td mat-cell *matCellDef="let add"> {{ add.coin.symbol }} </td>
           </ng-container>
       
           <ng-container matColumnDef="Kolicina">
             <th mat-header-cell *matHeaderCellDef> Kolicina </th>
-            <td mat-cell *matCellDef="let ad"> {{ ad.cryptoCurrencyAmount }} </td>
+            <td mat-cell *matCellDef="let add"> {{ add.cryptoCurrencyAmount }} </td>
           </ng-container>
       
           <ng-container matColumnDef="Cena">
             <th mat-header-cell *matHeaderCellDef> Cena </th>
-            <td mat-cell *matCellDef="let ad"> {{ ad.price }} $ </td>
+            <td mat-cell *matCellDef="let add"> {{ add.price }} $ </td>
           </ng-container>
           <ng-container matColumnDef="Oglasivac">
             <th mat-header-cell *matHeaderCellDef> Oglasivac </th>
-            <td mat-cell *matCellDef="let ad"> {{ ad.advertiser.userName }} </td>
+            <td mat-cell *matCellDef="let add"> {{ add.advertiser.userName }} </td>
           </ng-container>
       
           <ng-container matColumnDef="Obustavi">
             <th mat-header-cell *matHeaderCellDef> Obustavi </th>
-            <td mat-cell *matCellDef="let ad"> <button
+            <td mat-cell *matCellDef="let add"> <button
               mat-button
               color="warn"
-              (click)="deleteData(pollution, $event)"> Obustavi </button></td>
+              (click)="deleteProcessingAd(add.adUid)"> Obustavi </button></td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>

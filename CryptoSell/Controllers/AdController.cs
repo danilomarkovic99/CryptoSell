@@ -62,7 +62,7 @@ namespace CryptoSell.Controllers
         [HttpGet(nameof(GetUserActiveAds))]
         public async Task<IActionResult> GetUserActiveAds(string username)
         {
-            var activeAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Active && x.Advertiser.UserName == username).ToList();
+            var activeAds = Collection.Find(x => (x.AdStatus == Enums.AdStatus.Active || x.AdStatus == Enums.AdStatus.Processing || x.AdType == Enums.AdType.Buy || x.AdType == Enums.AdType.Sell) && x.Advertiser.UserName == username).ToList();
 
             if (activeAds == null)
                 return BadRequest();
@@ -73,7 +73,7 @@ namespace CryptoSell.Controllers
         [HttpGet(nameof(GetUserProcessingAds))]
         public async Task<IActionResult> GetUserProcessingAds(string username)
         {
-            var processingAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Processing && x.Advertiser.UserName == username).ToList();
+            var processingAds = Collection.Find(x => x.AdStatus == Enums.AdStatus.Processing && x.Customer.UserName == username).ToList();
 
             if (processingAds == null)
                 return BadRequest();
@@ -113,6 +113,5 @@ namespace CryptoSell.Controllers
         {
             Collection.DeleteOne<Ad>(a => a.AdUid == uid);
         }
-
     }
 }
