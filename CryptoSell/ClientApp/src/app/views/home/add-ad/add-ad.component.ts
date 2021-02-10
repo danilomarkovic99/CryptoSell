@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ObjectOrientedRenderer3 } from '@angular/core/src/render3/interfaces/renderer';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -11,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddAdComponent implements OnInit {
   form: FormGroup;
   private returnUrl: string;
-  currentUser: User = new User();
+  currentUser: any;
   http : HttpClient;
   coins: Coin[] = null;
   types: Type[] = [{Name: "Kupovina", Value: 0}, {Name:"Prodaja", Value:1}];
@@ -46,7 +47,7 @@ export class AddAdComponent implements OnInit {
   }
 
   selected(event) {
-   
+    
     this.ad.AdType = parseInt(event.value);
   }
   selected1(event) {  
