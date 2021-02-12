@@ -35,8 +35,9 @@ export class SellComponent implements AfterViewInit {
     };
 
   this.httpClient.put('https://localhost:5001/' + 'ad/buycoin', JSON.stringify(ad), options)
-     .subscribe((s) => {
+     .subscribe(s => {
       console.log(s);
+      alert("Uplatite na racun 170-12054555-12 u iznosu " + ad.price * ad.amount * 86 + " dinara");
       location.reload();
     });
   }

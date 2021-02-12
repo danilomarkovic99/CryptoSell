@@ -13,7 +13,7 @@ export class BuyComponent implements AfterViewInit {
 
   httpClient: HttpClient;
   public ads: Ad[] = [];
-
+  add : any = null;
   dataSource = new MatTableDataSource<Ad>(this.ads);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -36,10 +36,10 @@ export class BuyComponent implements AfterViewInit {
       'Content-Type': 'application/json',
     })
     };
-
   this.httpClient.put('https://localhost:5001/' + 'ad/buycoin', JSON.stringify(ad), options)
      .subscribe((s) => {
       console.log(s);
+      alert("Prebacite kriptosredstva na 0x718d3B215993fF4dd6bAa6CE322430B82DCCd7F9 u iznosu od " + ad.cryptoCurrencyAmount + " " + ad.coin.name + " da bi izvrsili zeljenu prodaju");
       location.reload();
     });
   }

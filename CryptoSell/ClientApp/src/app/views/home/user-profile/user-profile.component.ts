@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTab, MatTableDataSource } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +21,11 @@ export class UserProfileComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient , private route: ActivatedRoute,
+    private router: Router) {
+    if (localStorage.getItem("username") === null) {
+      this.router.navigate(['/home/login']);
+        }
 
     http.get('https://localhost:5001/' + 'user/getuser?username=' + localStorage.getItem("username")).subscribe(result => {
       this.currentUser = result;
