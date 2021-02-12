@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 
 @Component({
   selector: 'app-sell',
@@ -37,7 +38,8 @@ export class SellComponent implements AfterViewInit {
   this.httpClient.put('https://localhost:5001/' + 'ad/buycoin', JSON.stringify(ad), options)
      .subscribe(s => {
       console.log(s);
-      alert("Uplatite na racun 170-12054555-12 u iznosu " + ad.price * ad.amount * 86 + " dinara");
+      const pr = parseFloat(ad.price) * 86;
+      alert("Uplatite na racun 170-12054555-12 u iznosu " + pr + " dinara");
       location.reload();
     });
   }
